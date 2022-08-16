@@ -1,8 +1,11 @@
 return require('packer').startup(function(use) -- Packer can manage itself use 'wbthomason/packer.nvim'
   
+
 	use 'wbthomason/packer.nvim'
 
 	use { "ellisonleao/gruvbox.nvim" }
+
+	use {"folke/tokyonight.nvim"}
   
 	use {
   		'nvim-lualine/lualine.nvim',
@@ -102,6 +105,8 @@ return require('packer').startup(function(use) -- Packer can manage itself use '
 	use {"akinsho/toggleterm.nvim", tag = 'v2.*', config = function()
   		require("toggleterm").setup()
 	end}
+
+	use {"moll/vim-bbye"}
 
 end)	
 

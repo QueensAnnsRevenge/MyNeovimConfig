@@ -1,4 +1,9 @@
-require("bufferline").setup {
+local status_ok, bufferline = pcall(require, "bufferline")
+if not status_ok then
+  return
+end
+
+bufferline.setup {
   options = {
     numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
     close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -26,11 +31,20 @@ require("bufferline").setup {
     --     return vim.fn.fnamemodify(buf.name, ':t:r')
     --   end
     -- end,
-    max_name_length = 30,
-    max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
-    tab_size = 21,
-    diagnostics = false, -- | "nvim_lsp" | "coc",
+    max_name_length = 10,
+    max_prefix_length = 5, -- prefix used when a buffer is de-duplicated
+    tab_size = 25,
+    diagnostics = "nvim_lsp", -- | "nvim_lsp" | "coc",
     diagnostics_update_in_insert = false,
+    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+  	local s = " "
+  	for e, n in pairs(diagnostics_dict) do
+    	local sym = e == "error" and " "
+      	or (e == "warning" and " " or "" )
+    	s = s .. n .. sym
+  	end
+  	return s
+     end,
     -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
     --   return "("..count..")"
     -- end,
@@ -42,8 +56,6 @@ require("bufferline").setup {
     --   end
     --   -- filter out by buffer name
     --   if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-    --     return true
-    --   end
     --   -- filter out based on arbitrary rules
     --   -- e.g. filter out vim wiki buffer from tabline in your work repo
     --   if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
@@ -64,41 +76,5 @@ require("bufferline").setup {
     -- sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
     --   -- add custom logic
     --   return buffer_a.modified > buffer_b.modified
-    -- end
-    diagnostics_indicator = function(count, level, diagnostics_dict, context)
-  if context.buffer:current() then
-    return ''
-  end
-
-  return ''
-end
-  },
-
-  custom_areas = {
-  right = function()
-    local result = {}
-    local seve = vim.diagnostic.severity
-    local error = #vim.diagnostic.get(0, {severity = seve.ERROR})
-    local warning = #vim.diagnostic.get(0, {severity = seve.WARN})
-    local info = #vim.diagnostic.get(0, {severity = seve.INFO})
-    local hint = #vim.diagnostic.get(0, {severity = seve.HINT})
-
-    if error ~= 0 then
-      table.insert(result, {text = "  " .. error, fg = "#EC5241"})
-    end
-
-    if warning ~= 0 then
-      table.insert(result, {text = "  " .. warning, fg = "#EFB839"})
-    end
-
-    if hint ~= 0 then
-      table.insert(result, {text = "  " .. hint, fg = "#A3BA5E"})
-    end
-
-    if info ~= 0 then
-      table.insert(result, {text = "  " .. info, fg = "#7EA9A7"})
-    end
-    return result
-  end,
 }
 }

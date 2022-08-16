@@ -12,4 +12,4 @@ require("gruvbox").setup({
   contrast = "", -- can be "hard", "soft" or empty string
   overrides = {},
 })
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme tokyonight")
