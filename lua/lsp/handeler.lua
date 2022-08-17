@@ -80,15 +80,16 @@ local function lsp_keymaps(bufnr)
 	--vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
 end
 
-M.on_attach = function(client, bufnr)
+
+--M.on_attach = function(client, bufnr)
 	-- vim.notify(client.name .. " starting...")
 	-- TODO: refactor this into a method that checks if string in list
-	if client.name == "clangd" then
-		client.resolved_capabilities.document_formatting = false
-	end
-	lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
-end
+--	if client.name == "clangd" then
+--		client.resolved_capabilities.document_formatting = false
+--	end
+--	lsp_keymaps(bufnr)
+--	lsp_highlight_document(client)
+--end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 

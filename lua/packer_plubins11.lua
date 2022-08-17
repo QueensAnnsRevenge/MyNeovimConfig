@@ -12,28 +12,6 @@ return require('packer').startup(function(use) -- Packer can manage itself use '
   		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 
   	}
-  	use({
-    		"aserowy/tmux.nvim",
-    		config = function()
-        	require("tmux").setup({
-            	-- overwrite default configuration
-            	-- here, e.g. to enable default bindings
-            	copy_sync = {
-                -- enables copy sync and overwrites all register actions to
-                	-- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
-                	enable = true,
-            	},
-            	navigation = {
-                	-- enables default keybindings (C-hjkl) for normal mode
-                	enable_default_keybindings = true,
-            	},
-            		resize = {
-                	-- enables default keybindings (A-hjkl) for normal mode
-                		enable_default_keybindings = true,
-            		}		
-        	})
-    	end
-	})
 
 	--Nvim tree
 	use {
@@ -56,7 +34,6 @@ return require('packer').startup(function(use) -- Packer can manage itself use '
 
 	use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
 
-	use 'windwp/nvim-ts-autotag'
 
  	use {
 		"windwp/nvim-autopairs",
@@ -81,7 +58,6 @@ return require('packer').startup(function(use) -- Packer can manage itself use '
     		"williamboman/mason-lspconfig.nvim",
 	}
 
-	use 'jose-elias-alvarez/null-ls.nvim'
 
 	use {
   		'lewis6991/gitsigns.nvim',

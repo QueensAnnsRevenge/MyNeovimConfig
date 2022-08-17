@@ -131,28 +131,25 @@ cmp.setup.cmdline(':', {
   })
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['pyright'].setup {
+
+ --lsp for lua
+ require('lspconfig')['sumneko_lua'].setup {
     capabilities = capabilities
   }
 
-
+  -- lsp for c
   require('lspconfig')['clangd'].setup {
-	capabilities = capabilities
-  }
-
-
-
-  require('lspconfig')['sumneko_lua'].setup {
     capabilities = capabilities
   }
 
-
+  -- lsp for go
   require('lspconfig')['gopls'].setup {
     capabilities = capabilities
   }
 
-
-  require('lspconfig')['jdtls'].setup {
-    capabilities = capabilities
+  require('lspconfig')['pyright'].setup {
+    capabilities = capabilities,
+    root_dir = function(fname)    
+        return vim.loop.cwd()
+    end,
   }
